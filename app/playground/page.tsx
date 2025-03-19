@@ -6,6 +6,7 @@ import { CustomizationPanel } from "../(main)/_components/customization-panel";
 import { LoadingScreen } from "../(main)/_components/loading-screen";
 import { PromptInput } from "../(main)/_components/prompt-input";
 import { GlitchText } from "../(main)/_components/ui/glitch-text";
+import SidebarWrapper from "../(main)/_components/SidebarWrapper"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import Link from "next/link";
@@ -60,24 +61,13 @@ export function VideoGenerator() {
 
 
   return (
-    <div className="dark w-full min-h-screen bg-zinc-900">
+    <div className="flex min-h-screen w-full">
+    <div className="w-64">
+      <SidebarWrapper />
+    </div>
+    <div className="flex-1 dark w-full min-h-screen bg-zinc-900">
     <div className="relative w-full max-w-7xl mx-auto dark:bg-zinc-900">
-      {/* 🟢 Sliding Sidebar (SideNav) */}
-      <Sheet>
-        <SheetTrigger className="fixed top-4 left-4 z-50 p-2 bg-zinc-800 rounded-md shadow-md hover:bg-zinc-700">
-          <Menu className="text-white w-6 h-6" />
-        </SheetTrigger>
-        <SheetContent side="left" className="bg-zinc-900 text-white w-[280px] p-4">
-          <h2 className="text-xl font-bold">Navigation</h2>
-          <ul className="mt-4 space-y-3">
-            <li className="hover:text-gray-400 cursor-pointer"><Link href="/dashboard">🏠 Dashboard</Link></li>
-            <li className="hover:text-gray-400 cursor-pointer">🎥 Create Video</li>
-            <li className="hover:text-gray-400 cursor-pointer">🔍 Explore</li>
-            <li className="hover:text-gray-400 cursor-pointer">💳 Billing</li>
-          </ul>
-        </SheetContent>
-      </Sheet>
-
+      
       <AnimatePresence>{isLoading && <LoadingScreen />}</AnimatePresence>
 
       {/* 🟣 Page Content */}
@@ -131,6 +121,7 @@ export function VideoGenerator() {
    
 
       </div>
+    </div>
     </div>
     </div>
   );

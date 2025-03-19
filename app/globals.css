@@ -27,6 +27,12 @@
   }
 }
 
+#__next-build-watcher,
+#__next-route-announcer__,
+#__next-build-indicator {
+  display: none !important;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -14,7 +14,7 @@ export function CreateNewButton() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          className="btn-gradient-pink relative group"
+          className="btn-gradient-pink relative group bg-pink-700"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
