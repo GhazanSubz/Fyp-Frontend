@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 open vscode and run the command:
 
-git clone 
+git clone https://github.com/GhazanSubz/Fyp-Frontend
 
 Create a .env.local file
 
