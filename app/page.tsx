@@ -559,7 +559,7 @@ export default function LandingPage() {
                 <div className="w-8 h-8 rounded-md bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center mr-2">
                   <Video className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-xl font-bold text-white">PUNK.AI</span>
+                <span className="text-xl font-bold text-white">PROGEN.AI</span>
               </Link>
               <p className="text-zinc-400 mb-4 max-w-xs">
                 Create stunning AI-generated videos with a punk aesthetic. Customize your videos with our powerful
@@ -658,7 +658,7 @@ export default function LandingPage() {
           </div>
 
           <div className="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-zinc-500 text-sm mb-4 md:mb-0">© 2024 PUNK.AI. All rights reserved.</p>
+            <p className="text-zinc-500 text-sm mb-4 md:mb-0">© 2024 PROGEN.AI. All rights reserved.</p>
             <div className="flex space-x-6">
               <Link href="#" className="text-zinc-500 hover:text-white text-sm transition-colors">
                 Privacy Policy
