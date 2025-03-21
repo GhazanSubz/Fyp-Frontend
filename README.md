@@ -2,6 +2,24 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+open vscode and run the command:
+
+git clone https://github.com/GhazanSubz/Fyp-Frontend
+
+Create a .env.local file
+
+copy and paste following:
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_anVzdC1kaW5vc2F1ci00My5jbGVyay5hY2NvdW50cy5kZXYk
+CLERK_SECRET_KEY=sk_test_HJ3UJ9U4X3x6Tptb0R7rMUjmgIgsKvP0amAiozgLgV
+NEXT_PUBLIC_DISABLE_OVERLAY=true
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+
+Run the command:
+
+npm install
+
 First, run the development server:
 
 ```bash
