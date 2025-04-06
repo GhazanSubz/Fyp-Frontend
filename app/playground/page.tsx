@@ -7,9 +7,7 @@ import { LoadingScreen } from "../(main)/_components/loading-screen";
 import { PromptInput } from "../(main)/_components/prompt-input";
 import { GlitchText } from "../(main)/_components/ui/glitch-text";
 import SidebarWrapper from "../(main)/_components/SidebarWrapper";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Download } from "lucide-react";
-import Link from "next/link";
+import { Download } from "lucide-react";
 
 export type VideoSettings = {
   subtitleColor: string;
@@ -21,7 +19,7 @@ export type VideoSettings = {
 };
 
 export function VideoGenerator() {
-  const [prompt, setPrompt] = useState<string>("");
+  const [prompt, setPrompt] = useState("");
   const [settings, setSettings] = useState<VideoSettings>({
     subtitleColor: "#ff00ff",
     iterations: 2,
@@ -30,8 +28,8 @@ export function VideoGenerator() {
     backgroundMusic: "E:\\fyp_backend\\backend\\genAI\\backgroundMusic1.wav",
     voiceType: "v2/en_speaker_6",
   });
-  const [currentStep, setCurrentStep] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [videoData, setVideoData] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,43 +43,41 @@ export function VideoGenerator() {
   };
 
   const generateVideo = async (prompt: string, settings: VideoSettings) => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15 * 60 * 1000); // 15 min timeout
+
     try {
-      setError(null); 
-
-      const timeout = 10 * 60 * 1000; // 10 minutes timeout in milliseconds
-
-      const timeoutPromise = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error('Request timed out after 10 minutes')), timeout)
-      );
-
-      const response = await Promise.race([
-        fetch("/api/generate-video", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt,
-            genre: settings.genre,
-            iterations: settings.iterations,
-            backgroundType: settings.backgroundVideo,
-            musicType: settings.backgroundMusic,
-            voiceType: settings.voiceType,
-            subtitleColor: settings.subtitleColor,
-          }),
+      const response = await fetch("/api/generate-video", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          prompt,
+          genre: settings.genre,
+          iterations: settings.iterations,
+          backgroundType: settings.backgroundVideo,
+          musicType: settings.backgroundMusic,
+          voiceType: settings.voiceType,
+          subtitleColor: settings.subtitleColor,
         }),
-        timeoutPromise, // Timeout will reject the promise if it takes too long
-      ]);
+      });
+
+      clearTimeout(timeout);
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.error || "Failed to generate video");
       }
 
-      return await response.json();
-    } catch (error) {
-      console.error("Error generating video:", error);
-      throw error; // Re-throw error for further handling
+      const data = await response.json();
+      return data;
+    } catch (error: any) {
+      if (error.name === "AbortError") {
+        throw new Error("Request timed out after 15 minutes.");
+      }
+      throw error;
     }
   };
 
@@ -90,33 +86,21 @@ export function VideoGenerator() {
       setCurrentStep(currentStep + 1);
     } else {
       try {
-        // Show loading screen during generation
         setIsLoading(true);
         setVideoData(null);
+        setError(null);
 
         const result = await generateVideo(prompt, settings);
-        console.log("Video generation successful");
 
         if (result.success && result.video_data) {
-          // Store the video data
           setVideoData(result.video_data);
-          // You can also save metrics if needed
           console.log("Video metrics:", result.metrics);
         } else {
-          throw new Error("Video generation did not return valid data");
+          throw new Error("Video generation failed: No data returned.");
         }
-      } catch (error) {
-        console.error("Failed to generate video:", error);
-
-        if (error instanceof Error) {
-          if (error.message === "Request timed out after 10 minutes") {
-            setError("Video generation timed out. Please try again.");
-          } else {
-            setError(error.message);
-          }
-        } else {
-          setError("An unexpected error occurred");
-        }
+      } catch (error: any) {
+        console.error("Video generation error:", error);
+        setError(error.message || "Unexpected error occurred");
       } finally {
         setIsLoading(false);
       }
@@ -124,16 +108,12 @@ export function VideoGenerator() {
   };
 
   const handlePrevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  // Function to render the video player
   const renderVideoPlayer = () => {
     if (!videoData) return null;
 
-    // Create a blob URL from the base64 data
     const blobUrl = `data:video/mp4;base64,${videoData}`;
 
     return (
@@ -160,10 +140,9 @@ export function VideoGenerator() {
         <SidebarWrapper />
       </div>
       <div className="flex-1 dark w-full min-h-screen bg-zinc-900">
-        <div className="relative w-full max-w-7xl mx-auto dark:bg-zinc-900 p-6">
+        <div className="relative w-full max-w-7xl mx-auto p-6">
           <AnimatePresence>{isLoading && <LoadingScreen />}</AnimatePresence>
 
-          {/* 🟣 Page Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -173,14 +152,13 @@ export function VideoGenerator() {
             <GlitchText className="text-white text-5xl font-bold tracking-tighter">
               Generate Your AI Video
             </GlitchText>
-            <div className="h-1 w-48 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 mx-auto mt-2"></div>
+            <div className="h-1 w-48 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 mx-auto mt-2" />
             <p className="text-zinc-400 mt-4 max-w-2xl mx-auto">
               Enter your video idea below and customize it with our punk-style generator. Break the rules and create
               something revolutionary!
             </p>
           </motion.div>
 
-          {/* Error message display */}
           {error && (
             <div className="mb-8 p-4 bg-red-900/50 border border-red-800 rounded-lg text-white">
               <p className="font-bold text-red-300">Error:</p>
@@ -194,7 +172,6 @@ export function VideoGenerator() {
             </div>
           )}
 
-          {/* Main content area */}
           <div className="flex flex-col lg:flex-row gap-8">
             <motion.div
               className="flex-1"
@@ -229,13 +206,8 @@ export function VideoGenerator() {
             </AnimatePresence>
           </div>
 
-          {/* Video player section */}
           {videoData && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               {renderVideoPlayer()}
             </motion.div>
           )}
@@ -245,7 +217,6 @@ export function VideoGenerator() {
   );
 }
 
-// ✅ Default export for Next.js
 export default function PlaygroundPage() {
   return <VideoGenerator />;
 }
