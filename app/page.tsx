@@ -279,17 +279,12 @@ export default function LandingPage() {
           >
             <div className="aspect-video rounded-xl overflow-hidden border border-zinc-800 shadow-2xl shadow-pink-500/10">
               <Image
-                src="/placeholder.svg?height=720&width=1280"
+                src="/Punk1.jpg"
                 alt="AI Video Generator Demo"
                 width={1280}
                 height={720}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center pb-8">
-                <Button className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full w-16 h-16 flex items-center justify-center">
-                  <Video className="h-8 w-8" />
-                </Button>
-              </div>
             </div>
 
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full blur-3xl opacity-30"></div>
