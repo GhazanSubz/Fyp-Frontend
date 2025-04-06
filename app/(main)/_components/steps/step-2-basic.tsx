@@ -1,38 +1,44 @@
-"use client"
-
-import { motion } from "framer-motion"
-import type { VideoSettings } from "@/app/playground/page"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { motion } from "framer-motion";
+import { VideoSettings } from "@/app/playground/page";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface Step2BackgroundProps {
-  settings: VideoSettings
-  onSettingsChange: (key: keyof VideoSettings, value: any) => void
+  settings: VideoSettings;
+  onSettingsChange: (key: keyof VideoSettings, value: any) => void;
 }
 
 export function Step2Background({ settings, onSettingsChange }: Step2BackgroundProps) {
   const backgroundOptions = [
     {
       value: "urban",
-      label: "Urban Dystopia",
+      label: "Minecraft",
       description: "Gritty city streets with neon signs and graffiti",
+      preview: "https://qbhnvyynbrkwonkfxkwn.supabase.co/storage/v1/object/public/fypcontent//Insertion%20of%20a%20central%20venous%20catheter.mp4",
+      type: "video",
     },
     {
       value: "concert",
-      label: "Concert Stage",
+      label: "Subway Surfers",
       description: "Energetic live performance setting with lights",
+      preview: "https://qbhnvyynbrkwonkfxkwn.supabase.co/storage/v1/object/public/fypcontent//Stardust.mp4",
+      type: "video",
     },
     {
       value: "abstract",
-      label: "Abstract Glitch",
+      label: "Stardust",
       description: "Distorted digital patterns and visual noise",
+      preview: "/Stardust.mp4", 
+      type: "video",
     },
     {
       value: "industrial",
-      label: "Industrial Wasteland",
+      label: "Destruction",
       description: "Abandoned factories and rusty machinery",
+      preview: "/placeholder.svg?height=80&width=120&text=Industrial",
+      type: "image",
     },
-  ]
+  ];
 
   return (
     <motion.div
@@ -60,15 +66,38 @@ export function Step2Background({ settings, onSettingsChange }: Step2BackgroundP
             onClick={() => onSettingsChange("backgroundVideo", option.value)}
           >
             <RadioGroupItem value={option.value} id={`background-${option.value}`} className="text-pink-500" />
-            <div className="flex-1">
-              <label htmlFor={`background-${option.value}`} className="text-white font-medium cursor-pointer">
-                {option.label}
-              </label>
-              <p className="text-zinc-400 text-sm">{option.description}</p>
+            <div className="flex-1 flex items-center gap-4">
+              <div className="flex-shrink-0 rounded-md overflow-hidden border border-zinc-700">
+                {option.type === "image" ? (
+                  <img
+                    src={option.preview}
+                    alt={option.label}
+                    width={120}
+                    height={80}
+                    className="object-cover"
+                  />
+                ) : (
+                  <video
+                    src={option.preview}
+                    width={120}
+                    height={80}
+                    className="object-cover"
+                    autoPlay
+                    loop
+                    muted
+                  />
+                )}
+              </div>
+              <div>
+                <label htmlFor={`background-${option.value}`} className="text-white font-medium cursor-pointer">
+                  {option.label}
+                </label>
+                <p className="text-zinc-400 text-sm">{option.description}</p>
+              </div>
             </div>
           </motion.div>
         ))}
       </RadioGroup>
     </motion.div>
-  )
+  );
 }

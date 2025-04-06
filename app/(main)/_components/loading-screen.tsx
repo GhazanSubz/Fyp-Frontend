@@ -43,15 +43,20 @@ export function LoadingScreen() {
           GENERATING YOUR VIDEO
         </motion.h2>
 
-        <p className="text-zinc-400 max-w-md">
-          Hang tight while we create your punk masterpiece. This might take a minute...
+        <p className="text-zinc-400 max-w-md mb-2">
+          Hang tight while we create your punk masterpiece. This process typically takes 30-60 seconds...
+        </p>
+        
+        <p className="text-xs text-zinc-500 max-w-md italic">
+          Our AI is crafting your video using the prompt and settings you provided.
+          The complete video with synchronized subtitles will be available soon.
         </p>
 
         <div className="mt-8 h-2 w-128 bg-zinc-800 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 8 }}
+            transition={{ duration: 45 }} // Extended to account for longer generation time
             className="h-full bg-gradient-to-r from-purple-600 via-pink-600 to-red-600"
           ></motion.div>
         </div>
