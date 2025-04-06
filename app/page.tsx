@@ -361,7 +361,7 @@ export default function LandingPage() {
             >
               <div className="aspect-[4/5] rounded-xl overflow-hidden border border-zinc-800 shadow-xl">
                 <Image
-                  src="/placeholder.svg?height=800&width=640"
+                  src="/Chinatown.jpg"
                   alt="AI Video Generation Process"
                   width={640}
                   height={800}
@@ -391,134 +391,6 @@ export default function LandingPage() {
               ))}
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Showcase Section */}
-      <section id="showcase" className="py-20 md:py-28 bg-zinc-950">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeIn}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Video Showcase</h2>
-            <p className="text-zinc-400 max-w-2xl mx-auto">
-              Check out these amazing videos created with our AI generator.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <motion.div
-                key={item}
-                className="group relative aspect-video rounded-lg overflow-hidden border border-zinc-800"
-                variants={fadeIn}
-              >
-                <Image
-                  src={`/placeholder.svg?height=360&width=640&text=Video+${item}`}
-                  alt={`Showcase video ${item}`}
-                  width={640}
-                  height={360}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Button className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full w-12 h-12 flex items-center justify-center">
-                    <Video className="h-6 w-6" />
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            className="mt-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <Link href="/dashboard">
-              <Button variant="outline" className="border-pink-600 text-pink-500 hover:bg-pink-600/10">
-                View More Examples <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeIn}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Simple Pricing</h2>
-            <p className="text-zinc-400 max-w-2xl mx-auto">Choose the plan that works best for you. No hidden fees.</p>
-          </motion.div>
-
-          <motion.div
-            className="grid md:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            {plans.map((plan, index) => (
-              <motion.div
-                key={index}
-                className={`rounded-xl border ${
-                  plan.highlighted
-                    ? "border-pink-500 bg-gradient-to-b from-pink-500/20 to-transparent"
-                    : "border-zinc-800 bg-zinc-900"
-                } p-8 relative`}
-                variants={fadeIn}
-              >
-                {plan.highlighted && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    MOST POPULAR
-                  </div>
-                )}
-                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                <div className="flex items-end mb-4">
-                  <span className="text-4xl font-bold text-white">{plan.price}</span>
-                  {plan.period && <span className="text-zinc-400 ml-1">{plan.period}</span>}
-                </div>
-                <p className="text-zinc-400 mb-6">{plan.description}</p>
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start">
-                      <CheckCircle2 className="h-5 w-5 text-pink-500 mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-zinc-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/dashboard" className="block">
-                  <Button
-                    className={`w-full ${
-                      plan.highlighted
-                        ? "bg-pink-600 hover:bg-pink-700 text-white"
-                        : "bg-zinc-800 hover:bg-zinc-700 text-white"
-                    }`}
-                  >
-                    {plan.cta}
-                  </Button>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
       </section>
 

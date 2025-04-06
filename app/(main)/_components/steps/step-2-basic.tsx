@@ -12,32 +12,32 @@ export function Step2Background({ settings, onSettingsChange }: Step2BackgroundP
   const backgroundOptions = [
     {
       value: "urban",
-      label: "Minecraft",
+      label: "Subway Surfers",
       description: "Gritty city streets with neon signs and graffiti",
-      preview: "https://qbhnvyynbrkwonkfxkwn.supabase.co/storage/v1/object/public/fypcontent//Insertion%20of%20a%20central%20venous%20catheter.mp4",
+      preview: "https://qbhnvyynbrkwonkfxkwn.supabase.co/storage/v1/object/public/fypcontent//SubwaySurfer.mp4",
       type: "video",
     },
     {
       value: "concert",
-      label: "Subway Surfers",
+      label: "Stardust",
       description: "Energetic live performance setting with lights",
       preview: "https://qbhnvyynbrkwonkfxkwn.supabase.co/storage/v1/object/public/fypcontent//Stardust.mp4",
       type: "video",
     },
     {
       value: "abstract",
-      label: "Stardust",
+      label: "Nature",
       description: "Distorted digital patterns and visual noise",
-      preview: "/Stardust.mp4", 
+      preview: "https://qbhnvyynbrkwonkfxkwn.supabase.co/storage/v1/object/public/fypcontent//backgroundVideo69.mp4", 
       type: "video",
     },
     {
       value: "industrial",
-      label: "Destruction",
+      label: "Bithday",
       description: "Abandoned factories and rusty machinery",
-      preview: "/placeholder.svg?height=80&width=120&text=Industrial",
-      type: "image",
-    },
+      preview: "https://qbhnvyynbrkwonkfxkwn.supabase.co/storage/v1/object/public/fypcontent//bro.mp4",
+      type: "video",
+    }
   ];
 
   return (

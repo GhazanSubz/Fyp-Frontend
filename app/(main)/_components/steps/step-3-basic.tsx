@@ -14,18 +14,18 @@ interface Step3MusicProps {
 export function Step3Music({ settings, onSettingsChange }: Step3MusicProps) {
   const musicOptions = [
     {
-      value: "punk",
-      label: "Punk Rock",
+      value: "Classic",
+      label: "Rock",
       description: "Fast-paced, aggressive guitar riffs and drums",
     },
     {
-      value: "synthwave",
-      label: "Synthwave",
+      value: "Classic",
+      label: "Classic",
       description: "Retro electronic music with 80s vibes",
     },
     {
-      value: "industrial",
-      label: "Industrial",
+      value: "Hip Hop",
+      label: "Hip Hop",
       description: "Harsh, mechanical sounds with distorted beats",
     },
     {
